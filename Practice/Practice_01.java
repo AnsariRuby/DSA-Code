@@ -90,6 +90,27 @@ public class Practice_01 {
         }
         return arr;
     }
+
+    // 5. Given an array A and int value K, rotate an array k times from last to first.
+    public static void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    public static int[] rotateArray(int[] arr, int k) {
+        int n = arr.length;
+        k = k % n;
+
+        reverse(arr, 0, n - 1);
+        reverse(arr, 0, k - 1);
+        reverse(arr, k, n - 1);
+
+        return arr;
+    }
     static void main(String[] args) {
         int[] arr = {10, 20, 30, 40, 50, 60, 70, 80};
         System.out.println(Arrays.toString(reverseArrayInRange(arr, 1, 5)));
