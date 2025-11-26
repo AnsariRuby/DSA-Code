@@ -46,11 +46,73 @@ public class Practice_03 {
         }
         return ans;
     }
+
+    // 3. Equilibrium Index
+    // GIen an array A[] of size N, Find the Equilibrium index. i is an equilibrium index when :
+    // Sum of all the elements in left side of i  = Sum of all the elements in right side of i
+    public static int equilibrium(int[] A) {
+        int n = A.length;
+        for (int i = 0; i < n; i++) {
+            int lsum = 0;
+            for (int j = 0; j < i; j++) {
+                lsum += A[j];
+            }
+            int rsum = 0;
+            for (int j = i + 1; j < n; j++) {
+                rsum += A[j];
+            }
+            if (lsum == rsum) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int equilibriumIndex(int[] A) {
+        int n = A.length;
+        int[] psum = prefixSum(A);
+        for (int i = 0; i < n; i++) {
+            int lsum = 0;
+            if (i > 0) {
+                lsum = psum[i - 1];
+            }
+            int rsum = psum[n - 1] - psum[i];
+            if (lsum == rsum) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int equilibriumIndex2(int[] A) {
+        int n = A.length;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += A[i];
+        }
+        int lsum = 0;
+        for (int i = 0; i < n; i++) {
+            lsum += A[i];
+            if (lsum == sum) {
+                return i;
+            }
+            sum -= A[i];
+        }
+        return -1;
+    }
     static void main(String[] args) {
-        int[] arr = {3, 4, -2, 6, 8, 10, 13, 1};
-        int[][] Q = {{1, 3}, {2, 6}, {5, 5}, {0, 3}};
-        System.out.println(Arrays.toString(rangeSum(arr, Q)));
-        System.out.println(Arrays.toString(rangeSumQueries(arr, Q)));
+        int[] arr = {-7, 5, 1, 2, -4, 3, 0};
+        System.out.println(equilibrium(arr));
+        int[] A = {1, 2, 3};
+//        System.out.println(equilibrium(A));
+//        System.out.println(equilibriumIndex(arr));
+//        System.out.println(equilibriumIndex(A));
+        System.out.println(equilibriumIndex2(arr));
+        System.out.println(equilibriumIndex2(A));
+
+
+//        int[] arr = {3, 4, -2, 6, 8, 10, 13, 1};
+//        int[][] Q = {{1, 3}, {2, 6}, {5, 5}, {0, 3}};
+//        System.out.println(Arrays.toString(rangeSum(arr, Q)));
+//        System.out.println(Arrays.toString(rangeSumQueries(arr, Q)));
 
 //        int[] A = {2, 4, 5, -3, 17, 8};
 //        System.out.println(Arrays.toString(prefixSum(A)));
