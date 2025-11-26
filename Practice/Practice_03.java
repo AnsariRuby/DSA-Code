@@ -98,16 +98,68 @@ public class Practice_03 {
         }
         return -1;
     }
+
+    // 4. Even Number for Q query
+    public static int[] evenNumber(int[] A, int[][] B) {
+        int q = B.length;
+        int[] ans = new int[q];
+        for (int i = 0; i < q; i++) {
+            int s = B[i][0];
+            int e = B[i][1];
+            int count = 0;
+            for (int j = s; j <= e; j++) {
+                if (A[j] % 2 == 0) {
+                    count++;
+                }
+            }
+            ans[i] = count;
+        }
+        return ans;
+    }
+    public static int[] prefixCount(int[] A) {
+        int n = A.length;
+        int[] ans = new int[n];
+        if (A[0] % 2 == 0) {
+            ans[0] = 1;
+        }
+        for (int i = 1; i < n; i++) {
+            if (A[i] % 2 == 0) {
+                ans[i] = ans[i - 1] + 1;
+            }else {
+                ans[i] = ans[i - 1];
+            }
+        }
+        return ans;
+    }
+    public static int[] evenNumberQuery(int[] A, int[][] B) {
+        int q = B.length;
+        int[] ans = new int[q];
+        int[] count = prefixCount(A);
+        for (int i = 0; i < q; i++) {
+            int s = B[i][0];
+            int e = B[i][1];
+            if (s == 0) {
+                ans[i] = count[e];
+            }else {
+                ans[i] = count[e] - count[s-1];
+            }
+        }
+        return ans;
+    }
     static void main(String[] args) {
-        int[] arr = {-7, 5, 1, 2, -4, 3, 0};
-        System.out.println(equilibrium(arr));
-        int[] A = {1, 2, 3};
+//        int[] A = {3, 5, 8, 9, 16, 14, 13, 12};
+//        int[][] B = {{1, 5}, {2, 6}, {4, 5}, {4, 4}, {3, 6}};
+//        System.out.println(Arrays.toString(evenNumber(A, B)));
+//        System.out.println(Arrays.toString(evenNumberQuery(A, B)));
+
+//        int[] arr = {-7, 5, 1, 2, -4, 3, 0};
+//        System.out.println(equilibrium(arr));
+//        int[] A = {1, 2, 3};
 //        System.out.println(equilibrium(A));
 //        System.out.println(equilibriumIndex(arr));
 //        System.out.println(equilibriumIndex(A));
-        System.out.println(equilibriumIndex2(arr));
-        System.out.println(equilibriumIndex2(A));
-
+//        System.out.println(equilibriumIndex2(arr));
+//        System.out.println(equilibriumIndex2(A));
 
 //        int[] arr = {3, 4, -2, 6, 8, 10, 13, 1};
 //        int[][] Q = {{1, 3}, {2, 6}, {5, 5}, {0, 3}};
